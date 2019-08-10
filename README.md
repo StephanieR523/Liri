@@ -10,7 +10,7 @@ Uses:
 
   * `do-what-it-says`
   
-![Alt text](/relative/path/to/screenshot1.png?raw=true "Optional Title")
+![Alt text](/screenshot1.png?raw=true "Optional Title")
 
 2. `node liri.js spotify-this-song <song name>`
 
