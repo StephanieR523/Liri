@@ -1,7 +1,5 @@
 
-var keys = require('./keys.js');
 var request = require('request');
-var twitter = require('twitter');
 var spotify = require('spotify');
 var fs = require('fs');
 
@@ -21,9 +19,7 @@ for (var i=3; i<nodeArgv.length; i++){
 
 //switch case
 switch(command){
-  case "my-tweets":
-    showTweets();
-  break;
+
 
   case "spotify-this-song":
     if(x){
