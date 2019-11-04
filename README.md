@@ -10,9 +10,12 @@ Uses:
 
   * `do-what-it-says`
   
-![Alt text](https://github.com/StephanieR523/Liri/blob/master/screenshot2.JPG)
+
 
 2. `node liri.js spotify-this-song <song name>`
+
+Song:
+![Alt text](https://github.com/StephanieR523/Liri/blob/master/newss2.JPG)
 
  Shows the following information about the song in terminal/bash window.
     - Artist(s)
@@ -23,6 +26,9 @@ Uses:
 Defaults to "Oops I did it again"
 
 3. `node liri.js movie-this <movie name>`
+
+Movie:
+![Alt text](https://github.com/StephanieR523/Liri/blob/master/newss.JPG)
 
  Shows the following information in terminal/bash.
 
