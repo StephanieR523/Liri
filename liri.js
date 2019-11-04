@@ -1,7 +1,13 @@
 
+
+require("dotenv").config();
+// var axios = require('axios');
+var keys = require('./keys.js');
 var request = require('request');
-var spotify = require('spotify');
+var Spotify = require('node-spotify-api');
 var fs = require('fs');
+console.log(keys.spotify)
+var spotify = new Spotify(keys.spotify);
 
 //Stored argument's array
 var nodeArgv = process.argv;
@@ -17,6 +23,9 @@ for (var i=3; i<nodeArgv.length; i++){
   }
 }
 
+pick(command, x)
+
+function pick(command, x) {
 //switch case
 switch(command){
 
@@ -45,11 +54,12 @@ switch(command){
     console.log("{Please enter a command: spotify-this-song, movie-this, do-what-it-says}");
 ;
 }
-
-
+};
 function spotifySong(song){
   spotify.search({ type: 'track', query: song}, function(error, data){
     if(!error){
+      // console.log(data.tracks)
+      // console.log(data)
       for(var i = 0; i < data.tracks.items.length; i++){
         var songData = data.tracks.items[i];
         //artist
@@ -76,9 +86,10 @@ function spotifySong(song){
 }
 
 function omdbData(movie){
-  var omdbURL = 'http://www.omdbapi.com/?t=' + movie + '&plot=short&tomatoes=true';
+  var omdbURL = 'http://www.omdbapi.com/?t=' + movie + '&plot=short&tomatoes=true' + '&apikey=trilogy';
 
   request(omdbURL, function (error, response, body){
+    console.log(response.statusCode)
     if(!error && response.statusCode == 200){
       var body = JSON.parse(body);
 
@@ -93,30 +104,41 @@ function omdbData(movie){
       console.log("Rotten Tomatoes URL: " + body.tomatoURL);
 
       //adds text to log.txt
-      fs.appendFile('log.txt', "Title: " + body.Title);
-      fs.appendFile('log.txt', "Release Year: " + body.Year);
-      fs.appendFile('log.txt', "IMdB Rating: " + body.imdbRating);
-      fs.appendFile('log.txt', "Country: " + body.Country);
-      fs.appendFile('log.txt', "Language: " + body.Language);
-      fs.appendFile('log.txt', "Plot: " + body.Plot);
-      fs.appendFile('log.txt', "Actors: " + body.Actors);
-      fs.appendFile('log.txt', "Rotten Tomatoes Rating: " + body.tomatoRating);
-      fs.appendFile('log.txt', "Rotten Tomatoes URL: " + body.tomatoURL);
+      appendText('log.txt', "Title: " + body.Title);
+      appendText('log.txt', "Release Year: " + body.Year);
+      appendText('log.txt', "IMdB Rating: " + body.imdbRating);
+      appendText('log.txt', "Country: " + body.Country);
+      appendText('log.txt', "Language: " + body.Language);
+      appendText('log.txt', "Plot: " + body.Plot);
+      appendText('log.txt', "Actors: " + body.Actors);
+      appendText('log.txt', "Rotten Tomatoes Rating: " + body.tomatoRating);
+      appendText('log.txt', "Rotten Tomatoes URL: " + body.tomatoURL);
 
     } else{
-      console.log('Error occurred.')
+      console.log('Error occurred.' + error)
     }
 
       //adds text to log.txt
-      fs.appendFile('log.txt', "-----------------------");
+      appendText('log.txt', "-----------------------");
     }
  
   );
   };
+  function appendText(file, data){
+  fs.appendFile(file, data, 'utf8',
+  // callback function
+  function(err) {
+      if (err) throw err;
+      // if no error
+      console.log("Data is appended to file successfully.")
+});
+  }
+
+
 function doThing(){
   fs.readFile('random.txt', "utf8", function(error, data){
     var txt = data.split(',');
-
-    spotifySong(txt[1]);
+    pick(txt[0],txt[1]);
+  
   });
-}
+};
