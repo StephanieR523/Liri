@@ -44,6 +44,9 @@ Movie:
 
 Defaults to "Titanic"
 
+Logs the following to the .txt file:
+![Alt text](https://github.com/StephanieR523/Liri/blob/master/newss3.JPG)
+
 4. `node liri.js do-what-it-says`
 
   Takes the text from random.txt and runs the song through spotify-this-song command
